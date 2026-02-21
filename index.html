@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的免费文档笔记</title>
+    <style>
+        /* 页面样式，让界面更美观 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "微软雅黑", "宋体", sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        .doc-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 24px;
+        }
+        /* 文档输入框样式 */
+        #docInput {
+            width: 100%;
+            height: 450px;
+            padding: 18px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.8;
+            resize: vertical; /* 可以手动拉宽/拉高输入框 */
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+        /* 按钮样式 */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .save-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .save-btn:hover {
+            background-color: #0056b3;
+        }
+        .clear-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #545b62;
+        }
+        /* 提示文字 */
+        .tips {
+            margin-top: 20px;
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="doc-container">
+        <h1>我的免费文档编辑页</h1>
+        <!-- 文档输入框 -->
+        <textarea id="docInput" placeholder="请在这里输入你的文档内容，支持换行、空格，输入后点击保存即可～"></textarea>
+        <!-- 功能按钮 -->
+        <div class="btn-group">
+            <button class="btn save-btn" onclick="saveDoc()">保存内容</button>
+            <button class="btn clear-btn" onclick="clearDoc()">清空内容</button>
+        </div>
+        <!-- 提示信息 -->
+        <div class="tips">
+            📌 内容会保存在当前浏览器中（比如你用Chrome打开，换Edge就看不到）；<br>
+            📌 清空浏览器缓存/换设备会丢失内容；<br>
+            📌 可以随时修改内容，修改后重新点击“保存内容”即可。
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时，自动读取之前保存的内容
+        window.onload = function() {
+            const savedText = localStorage.getItem('myFreeDoc');
+            if (savedText) {
+                document.getElementById('docInput').value = savedText;
+            }
+        };
+
+        // 保存内容到浏览器本地存储
+        function saveDoc() {
+            const inputContent = document.getElementById('docInput').value;
+            localStorage.setItem('myFreeDoc', inputContent);
+            alert('✅ 内容保存成功！');
+        }
+
+        // 清空内容
+        function clearDoc() {
+            if (confirm('❓ 确定要清空所有内容吗？清空后无法恢复哦～')) {
+                document.getElementById('docInput').value = '';
+                localStorage.removeItem('myFreeDoc');
+                alert('✅ 内容已清空！');
+            }
+        }
+    </script>
+</body>
+</html>
